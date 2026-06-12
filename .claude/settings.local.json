@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__list_projects",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__list_tables",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__get_project_url",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__get_publishable_keys",
+      "PowerShell(Remove-Item -Recurse -Force node_modules -Confirm:$false)",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__execute_sql",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__apply_migration",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__deploy_edge_function",
+      "PowerShell($anon = \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhd2JpaHZjbXZ2eW9oZHFic213Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NzY1NTAsImV4cCI6MjA5NTI1MjU1MH0.URO6-m62td27kSs8YvIB1_2IBfhhW03UsKq2nx_ZT0Q\"; $body = @{ full_name = \"E2E Test Admin\"; email = \"e2e-admin@example.com\"; password = \"E2eAdmin!Passw0rd\" } | ConvertTo-Json; try { $r = Invoke-RestMethod -Method Post -Uri \"https://cawbihvcmvvyohdqbsmw.supabase.co/functions/v1/bootstrap-admin\" -Headers @{ Authorization = \"Bearer $anon\"; apikey = $anon } -ContentType \"application/json\" -Body $body; $r | ConvertTo-Json } catch { $_.Exception.Response.StatusCode.value__; $reader = New-Object System.IO.StreamReader\\($_.Exception.Response.GetResponseStream\\(\\)\\); $reader.ReadToEnd\\(\\) })",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(Stop-Process -Id 37560 -Force -Confirm:$false; Start-Sleep -Seconds 2; \\(Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue\\) -eq $null)",
+      "mcp__aebc60dd-6c60-4ade-9673-006c80f7c690__get_advisors"
+    ]
+  }
+}
