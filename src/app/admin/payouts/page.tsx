@@ -7,7 +7,7 @@ export default function AdminPayoutsPage() {
   return (
     <ComingSoon
       title="Payouts"
-      description="Review and process partner payout requests."
+      description="Review and process agent payout requests."
     />
   );
 }

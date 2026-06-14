@@ -39,9 +39,9 @@ export default async function SignupPage() {
       <main className="flex flex-1 items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md">
           <div className="card p-8">
-            <h1 className="text-2xl font-bold text-navy-800">Become a Mary partner</h1>
+            <h1 className="text-2xl font-bold text-navy-800">Become a Mary agent</h1>
             <p className="mb-6 mt-1 text-sm text-slate-500">
-              Apply for access to the Mary Partner Portal. An administrator
+              Apply for access to the Mary Agent Portal. An administrator
               will review your application and complete onboarding.
             </p>
             <SignupForm />

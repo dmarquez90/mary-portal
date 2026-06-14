@@ -7,7 +7,7 @@ import { formatCurrency } from "@/lib/format";
 import type { Partner } from "@/lib/types";
 import PartnerEditForm from "@/components/admin/PartnerEditForm";
 
-export const metadata: Metadata = { title: "Partner details" };
+export const metadata: Metadata = { title: "Agent details" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminPartnerDetailPage({
@@ -54,7 +54,7 @@ export default async function AdminPartnerDetailPage({
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
-          Partners
+          Agents
         </Link>
         <h1 className="mt-2 text-2xl font-bold text-navy-800">{partner.full_name}</h1>
         <p className="mt-1 text-sm text-slate-500">{partner.email}</p>

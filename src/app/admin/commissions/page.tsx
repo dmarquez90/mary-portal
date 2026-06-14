@@ -7,7 +7,7 @@ export default function AdminCommissionsPage() {
   return (
     <ComingSoon
       title="Commissions"
-      description="Review and approve commissions earned by partners."
+      description="Review and approve commissions earned by agents."
     />
   );
 }

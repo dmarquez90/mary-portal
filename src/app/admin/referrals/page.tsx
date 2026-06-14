@@ -7,7 +7,7 @@ export default function AdminReferralsPage() {
   return (
     <ComingSoon
       title="Referrals"
-      description="Track companies referred by partners and their subscription status."
+      description="Track companies referred by agents and their subscription status."
     />
   );
 }

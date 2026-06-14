@@ -41,12 +41,12 @@ export default async function LoginPage() {
           <div className="card p-8">
             <h1 className="text-2xl font-bold text-navy-800">Welcome back</h1>
             <p className="mb-6 mt-1 text-sm text-slate-500">
-              Sign in to your admin or partner portal.
+              Sign in to your admin or agent portal.
             </p>
             <LoginForm />
           </div>
           <p className="mt-6 text-center text-xs text-navy-300">
-            New partner? <Link href="/signup" className="font-semibold text-accent-400 hover:underline">Apply for access</Link>
+            New agent? <Link href="/signup" className="font-semibold text-accent-400 hover:underline">Apply for access</Link>
           </p>
         </div>
       </main>

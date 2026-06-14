@@ -51,7 +51,7 @@ const ICONS = {
 
 const ADMIN_NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: ICONS.dashboard },
-  { href: "/admin/partners", label: "Partners", icon: ICONS.partners },
+  { href: "/admin/partners", label: "Agents", icon: ICONS.partners },
   { href: "/admin/referrals", label: "Referrals", icon: ICONS.referrals },
   { href: "/admin/commissions", label: "Commissions", icon: ICONS.commissions },
   { href: "/admin/promo-codes", label: "Promo Codes", icon: ICONS.promo },
@@ -79,6 +79,7 @@ export default function PortalShell({ variant, userName, children }: PortalShell
   const [menuOpen, setMenuOpen] = useState(false);
   const nav = variant === "admin" ? ADMIN_NAV : PARTNER_NAV;
   const home = variant === "admin" ? "/admin" : "/portal";
+  const roleLabel = variant === "admin" ? "Admin" : "Agent";
 
   const navLinks = (
     <nav className="flex flex-1 flex-col gap-1">
@@ -123,7 +124,7 @@ export default function PortalShell({ variant, userName, children }: PortalShell
         {navLinks}
         <div className="mt-auto border-t border-navy-700 pt-4">
           <p className="mb-2 truncate px-3 text-xs font-medium uppercase tracking-wide text-navy-300">
-            {userName} · {variant}
+            {userName} · {roleLabel}
           </p>
           <SignOutButton />
         </div>
@@ -156,7 +157,7 @@ export default function PortalShell({ variant, userName, children }: PortalShell
           {navLinks}
           <div className="mt-4 border-t border-navy-700 pt-4">
             <p className="mb-2 truncate px-3 text-xs font-medium uppercase tracking-wide text-navy-300">
-              {userName} · {variant}
+              {userName} · {roleLabel}
             </p>
             <SignOutButton />
           </div>

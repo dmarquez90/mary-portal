@@ -30,7 +30,7 @@ export default async function PortalLayout({
         <div className="card w-full max-w-md p-8 text-center">
           <h1 className="text-xl font-bold text-navy-800">Account suspended</h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-500">
-            Your partner account has been suspended. Please contact your
+            Your agent account has been suspended. Please contact your
             administrator for more information.
           </p>
           <div className="mt-6 flex justify-center">
@@ -49,7 +49,7 @@ export default async function PortalLayout({
           <h1 className="text-xl font-bold text-navy-800">Onboarding in progress</h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-500">
             Your account is being onboarded. We&apos;ll unlock your full
-            partner dashboard once this step is complete.
+            agent dashboard once this step is complete.
           </p>
           <div className="mt-4 flex justify-center">
             <OnboardingStatusBadge status={status} />

@@ -7,7 +7,7 @@ export default function AdminPromoCodesPage() {
   return (
     <ComingSoon
       title="Promo Codes"
-      description="Create and manage discount codes for partners to share."
+      description="Create and manage discount codes for agents to share."
     />
   );
 }

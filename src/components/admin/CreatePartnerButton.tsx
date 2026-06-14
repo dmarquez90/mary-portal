@@ -107,7 +107,7 @@ export default function CreatePartnerButton() {
     setLoading(false);
 
     if (fnError) {
-      let message = "Could not create the partner. Please try again.";
+      let message = "Could not create the agent. Please try again.";
       const context = (fnError as { context?: Response }).context;
       if (context && typeof context.json === "function") {
         try {
@@ -133,7 +133,7 @@ export default function CreatePartnerButton() {
         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
-        New partner
+        New agent
       </button>
 
       <Modal
@@ -142,7 +142,7 @@ export default function CreatePartnerButton() {
           setOpen(false);
           resetForm();
         }}
-        title="Create partner"
+        title="Create agent"
       >
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
           {error ? (
@@ -185,7 +185,7 @@ export default function CreatePartnerButton() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="cp-type" className="label">Partner type</label>
+              <label htmlFor="cp-type" className="label">Account type</label>
               <select id="cp-type" value={partnerType} onChange={(e) => setPartnerType(e.target.value as PartnerType)} className="input">
                 {PARTNER_TYPES.map((t) => (
                   <option key={t} value={t}>{PARTNER_TYPE_LABELS[t]}</option>
@@ -244,7 +244,7 @@ export default function CreatePartnerButton() {
               Cancel
             </button>
             <button type="submit" disabled={loading} className="btn-primary">
-              {loading ? "Creating…" : "Create partner"}
+              {loading ? "Creating…" : "Create agent"}
             </button>
           </div>
         </form>

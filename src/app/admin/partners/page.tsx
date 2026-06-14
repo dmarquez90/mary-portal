@@ -6,7 +6,7 @@ import { PARTNER_LEVEL_LABELS, type Partner } from "@/lib/types";
 import CreatePartnerButton from "@/components/admin/CreatePartnerButton";
 import PartnerStatusPill from "@/components/admin/PartnerStatusPill";
 
-export const metadata: Metadata = { title: "Partners" };
+export const metadata: Metadata = { title: "Agents" };
 export const dynamic = "force-dynamic";
 
 export default async function AdminPartnersPage() {
@@ -24,9 +24,9 @@ export default async function AdminPartnersPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-navy-800">Partners</h1>
+          <h1 className="text-2xl font-bold text-navy-800">Agents</h1>
           <p className="mt-1 text-sm text-slate-500">
-            Manage partner accounts, levels, commission rates, and onboarding.
+            Manage agent and reseller accounts, levels, commission rates, and onboarding.
           </p>
         </div>
         <CreatePartnerButton />
@@ -34,9 +34,9 @@ export default async function AdminPartnersPage() {
 
       {rows.length === 0 ? (
         <div className="card flex flex-col items-center justify-center px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-slate-700">No partners yet</p>
+          <p className="text-sm font-semibold text-slate-700">No agents yet</p>
           <p className="mt-1 max-w-sm text-sm text-slate-400">
-            Partners who apply via the signup form, or that you create
+            Agents who apply via the signup form, or that you create
             manually, will appear here.
           </p>
         </div>

@@ -39,13 +39,13 @@ export default async function AdminDashboardPage() {
       <div>
         <h1 className="text-2xl font-bold text-navy-800">Dashboard</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Overview of partners, referrals, and commissions.
+          Overview of agents, referrals, and commissions.
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <StatCard label="Total Partners" value={String(totalPartners ?? 0)} />
-        <StatCard label="Active Partners" value={String(activePartners ?? 0)} accent />
+        <StatCard label="Total Agents" value={String(totalPartners ?? 0)} />
+        <StatCard label="Active Agents" value={String(activePartners ?? 0)} accent />
         <StatCard label="Pending Approval" value={String(pendingPartners ?? 0)} />
         <StatCard label="Active Referrals" value={String(activeReferrals ?? 0)} />
         <StatCard

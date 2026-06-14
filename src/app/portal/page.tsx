@@ -49,7 +49,7 @@ export default async function PartnerDashboardPage() {
       <div>
         <h1 className="text-2xl font-bold text-navy-800">Dashboard</h1>
         <p className="mt-1 text-sm text-slate-500">
-          Welcome back, {partner?.full_name?.split(" ")[0] ?? "partner"}.
+          Welcome back, {partner?.full_name?.split(" ")[0] ?? "agent"}.
         </p>
       </div>
 

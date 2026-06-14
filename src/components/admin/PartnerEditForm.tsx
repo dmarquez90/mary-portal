@@ -94,7 +94,7 @@ export default function PartnerEditForm({ partner }: { partner: Partner }) {
 
   return (
     <form onSubmit={handleSubmit} className="card space-y-6 p-6" noValidate>
-      <h2 className="text-base font-semibold text-navy-800">Partner details</h2>
+      <h2 className="text-base font-semibold text-navy-800">Agent details</h2>
 
       {error ? (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
@@ -142,7 +142,7 @@ export default function PartnerEditForm({ partner }: { partner: Partner }) {
 
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
-          <label htmlFor="pe-type" className="label">Partner type</label>
+          <label htmlFor="pe-type" className="label">Account type</label>
           <select id="pe-type" value={partnerType} onChange={(e) => setPartnerType(e.target.value as PartnerType)} className="input">
             {PARTNER_TYPES.map((t) => (
               <option key={t} value={t}>{PARTNER_TYPE_LABELS[t]}</option>
@@ -190,7 +190,7 @@ export default function PartnerEditForm({ partner }: { partner: Partner }) {
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
           className="input resize-none"
-          placeholder="Internal notes about this partner (not visible to them)…"
+          placeholder="Internal notes about this agent (not visible to them)…"
         />
       </div>
 

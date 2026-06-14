@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s | Mary Portal",
   },
   description:
-    "Partner portal for MARY — manage referral partners, track referrals, and calculate recurring commissions automatically.",
+    "Agent portal for MARY — manage referral agents and resellers, track referrals, and calculate recurring commissions automatically.",
 };
 
 export default function RootLayout({

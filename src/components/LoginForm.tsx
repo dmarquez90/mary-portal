@@ -47,7 +47,7 @@ export default function LoginForm() {
 
     if (partnerError || !partner) {
       await supabase.auth.signOut();
-      setError("No partner profile found for this account. Contact your administrator.");
+      setError("No agent profile found for this account. Contact your administrator.");
       setLoading(false);
       return;
     }

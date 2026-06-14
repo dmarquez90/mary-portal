@@ -7,7 +7,7 @@ export default function AdminTrainingPage() {
   return (
     <ComingSoon
       title="Training"
-      description="Schedule onboarding training sessions for new partners."
+      description="Schedule onboarding training sessions for new agents."
     />
   );
 }
