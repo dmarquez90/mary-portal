@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { formatDateTime } from "@/lib/format";
@@ -19,9 +19,21 @@ interface NotificationBellProps {
 export default function NotificationBell({ theme = "light" }: NotificationBellProps) {
   const supabase = useMemo(() => createClient(), []);
   const reactId = useId();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [pending, setPending] = useState<PendingAgent[]>([]);
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
 
   useEffect(() => {
     let active = true;
@@ -60,7 +72,7 @@ export default function NotificationBell({ theme = "light" }: NotificationBellPr
   const count = pending.length;
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -82,7 +94,7 @@ export default function NotificationBell({ theme = "light" }: NotificationBellPr
       </button>
 
       {open ? (
-        <div className="absolute right-0 top-full z-30 mt-2 w-72 rounded-lg border border-slate-200 bg-white shadow-lg sm:left-0 sm:right-auto">
+        <div className="absolute right-0 top-full z-30 mt-2 w-[calc(100vw-2rem)] max-w-72 rounded-lg border border-slate-200 bg-white shadow-lg">
           <div className="border-b border-slate-100 px-4 py-3">
             <p className="text-sm font-semibold text-navy-800">Pending approvals</p>
           </div>
