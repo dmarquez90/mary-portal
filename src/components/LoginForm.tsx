@@ -59,6 +59,13 @@ export default function LoginForm() {
       return;
     }
 
+    if (profile.status === "pending") {
+      await supabase.auth.signOut();
+      setError("Your account is pending approval. We'll notify you once an administrator activates it.");
+      setLoading(false);
+      return;
+    }
+
     router.push(profile.role === "admin" ? "/admin" : "/agent");
     router.refresh();
   }

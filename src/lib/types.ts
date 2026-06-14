@@ -11,7 +11,7 @@ export const COMMISSION_STATUSES = ["pending", "approved", "paid"] as const;
 export type CommissionStatus = (typeof COMMISSION_STATUSES)[number];
 
 export type Role = "admin" | "agent";
-export type ProfileStatus = "active" | "inactive";
+export type ProfileStatus = "active" | "inactive" | "pending";
 
 export interface Profile {
   id: string;

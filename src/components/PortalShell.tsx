@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SignOutButton from "@/components/SignOutButton";
+import NotificationBell from "@/components/NotificationBell";
 
 interface NavItem {
   href: string;
@@ -111,22 +112,25 @@ export default function PortalShell({ variant, userName, children }: PortalShell
       {/* Mobile header */}
       <div className="sticky top-0 z-20 flex items-center justify-between bg-navy-800 px-4 py-3 lg:hidden">
         {brand}
-        <button
-          type="button"
-          onClick={() => setMenuOpen((open) => !open)}
-          className="rounded-lg p-2 text-navy-100 hover:bg-navy-700"
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? (
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          )}
-        </button>
+        <div className="flex items-center gap-1">
+          {variant === "admin" ? <NotificationBell theme="dark" /> : null}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="rounded-lg p-2 text-navy-100 hover:bg-navy-700"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? (
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile slide-down menu */}
@@ -142,9 +146,18 @@ export default function PortalShell({ variant, userName, children }: PortalShell
         </div>
       ) : null}
 
-      <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
-        {children}
-      </main>
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Desktop top bar */}
+        {variant === "admin" ? (
+          <div className="hidden items-center justify-end border-b border-slate-200 bg-white px-6 py-3 lg:flex lg:px-10">
+            <NotificationBell />
+          </div>
+        ) : null}
+
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

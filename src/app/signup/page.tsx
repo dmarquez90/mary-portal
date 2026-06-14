@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabase/server";
-import LoginForm from "@/components/LoginForm";
+import SignupForm from "@/components/SignupForm";
 
-export const metadata: Metadata = { title: "Sign in" };
+export const metadata: Metadata = { title: "Create account" };
 
-export default async function LoginPage() {
+export default async function SignupPage() {
   const supabase = createServerSupabase();
   const {
     data: { user },
@@ -39,14 +39,15 @@ export default async function LoginPage() {
       <main className="flex flex-1 items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md">
           <div className="card p-8">
-            <h1 className="text-2xl font-bold text-navy-800">Welcome back</h1>
+            <h1 className="text-2xl font-bold text-navy-800">Create your agent account</h1>
             <p className="mb-6 mt-1 text-sm text-slate-500">
-              Sign in to your admin or agent portal.
+              Apply for access to the Mary Portal. An administrator will
+              review and activate your account.
             </p>
-            <LoginForm />
+            <SignupForm />
           </div>
           <p className="mt-6 text-center text-xs text-navy-300">
-            New agent? <Link href="/signup" className="font-semibold text-accent-400 hover:underline">Create an account</Link>
+            Already have an account? <Link href="/login" className="font-semibold text-accent-400 hover:underline">Sign in</Link>
           </p>
         </div>
       </main>
