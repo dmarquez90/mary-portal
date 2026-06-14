@@ -9,6 +9,9 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function SignupForm() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -26,11 +29,14 @@ export default function SignupForm() {
 
     setLoading(true);
     const supabase = createClient();
-    const { data, error: fnError } = await supabase.functions.invoke("signup-agent", {
+    const { data, error: fnError } = await supabase.functions.invoke("signup-partner", {
       body: {
         full_name: fullName.trim(),
         email: email.trim().toLowerCase(),
         password,
+        company: company.trim(),
+        country: country.trim(),
+        phone: phone.trim(),
       },
     });
     setLoading(false);
@@ -62,11 +68,11 @@ export default function SignupForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <h1 className="text-xl font-bold text-navy-800">Request received!</h1>
+        <h1 className="text-xl font-bold text-navy-800">Application received!</h1>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-500">
-          Thanks, {fullName.split(" ")[0] || "there"}. Your account is pending
-          approval. An administrator will review your request and activate
-          your access — you&apos;ll be able to sign in once that&apos;s done.
+          Thanks, {fullName.split(" ")[0] || "there"}. Our team will review
+          your application. You&apos;ll be able to sign in once an
+          administrator approves your account and completes onboarding.
         </p>
         <div className="mt-6">
           <Link href="/login" className="btn-outline">
@@ -117,6 +123,52 @@ export default function SignupForm() {
         />
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="signup-company" className="label">
+            Company <span className="font-normal text-slate-400">(optional)</span>
+          </label>
+          <input
+            id="signup-company"
+            type="text"
+            autoComplete="organization"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            className="input"
+            placeholder="Acme Inc."
+          />
+        </div>
+        <div>
+          <label htmlFor="signup-country" className="label">
+            Country <span className="font-normal text-slate-400">(optional)</span>
+          </label>
+          <input
+            id="signup-country"
+            type="text"
+            autoComplete="country-name"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            className="input"
+            placeholder="United States"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="signup-phone" className="label">
+          Phone <span className="font-normal text-slate-400">(optional)</span>
+        </label>
+        <input
+          id="signup-phone"
+          type="tel"
+          autoComplete="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="input"
+          placeholder="(555) 123-4567"
+        />
+      </div>
+
       <div>
         <label htmlFor="signup-password" className="label">
           Password
@@ -159,7 +211,7 @@ export default function SignupForm() {
             Submitting…
           </>
         ) : (
-          "Create account"
+          "Apply for access"
         )}
       </button>
     </form>

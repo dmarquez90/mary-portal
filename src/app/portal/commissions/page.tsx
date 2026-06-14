@@ -3,11 +3,11 @@ import ComingSoon from "@/components/ComingSoon";
 
 export const metadata: Metadata = { title: "Commissions" };
 
-export default function AdminCommissionsPage() {
+export default function PartnerCommissionsPage() {
   return (
     <ComingSoon
       title="Commissions"
-      description="Review and approve commissions earned by partners."
+      description="Your commission history and payment status."
     />
   );
 }

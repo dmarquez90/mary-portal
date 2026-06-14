@@ -39,34 +39,27 @@ export default function LoginForm() {
       return;
     }
 
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
+    const { data: partner, error: partnerError } = await supabase
+      .from("partners")
       .select("role, status")
-      .eq("id", signInData.user.id)
+      .eq("user_id", signInData.user.id)
       .single();
 
-    if (profileError || !profile) {
+    if (partnerError || !partner) {
       await supabase.auth.signOut();
-      setError("No portal profile found for this account. Contact your administrator.");
+      setError("No partner profile found for this account. Contact your administrator.");
       setLoading(false);
       return;
     }
 
-    if (profile.status === "inactive") {
+    if (partner.status === "suspended") {
       await supabase.auth.signOut();
-      setError("Your account has been deactivated. Contact your administrator.");
+      setError("Your account has been suspended. Contact your administrator.");
       setLoading(false);
       return;
     }
 
-    if (profile.status === "pending") {
-      await supabase.auth.signOut();
-      setError("Your account is pending approval. We'll notify you once an administrator activates it.");
-      setLoading(false);
-      return;
-    }
-
-    router.push(profile.role === "admin" ? "/admin" : "/agent");
+    router.push(partner.role === "admin" ? "/admin" : "/portal");
     router.refresh();
   }
 

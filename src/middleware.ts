@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const isProtected = path.startsWith("/admin") || path.startsWith("/agent");
+  const isProtected = path.startsWith("/admin") || path.startsWith("/portal");
 
   if (isProtected && !user) {
     const loginUrl = request.nextUrl.clone();
@@ -48,5 +48,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/agent/:path*", "/login", "/signup", "/api/:path*"],
+  matcher: ["/admin/:path*", "/portal/:path*", "/login", "/signup", "/api/:path*"],
 };

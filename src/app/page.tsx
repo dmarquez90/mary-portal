@@ -9,13 +9,13 @@ export default async function HomePage() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
+    const { data: partner } = await supabase
+      .from("partners")
       .select("role")
-      .eq("id", user.id)
+      .eq("user_id", user.id)
       .single();
-    if (profile?.role === "admin") redirect("/admin");
-    if (profile?.role === "agent") redirect("/agent");
+    if (partner?.role === "admin") redirect("/admin");
+    if (partner?.role === "partner") redirect("/portal");
   }
 
   return (
@@ -40,16 +40,16 @@ export default async function HomePage() {
       <main className="flex flex-1 items-center justify-center px-6 pb-20">
         <div className="max-w-2xl text-center">
           <p className="mb-4 inline-block rounded-full border border-accent-500/40 bg-accent-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-accent-300">
-            Referral Tracking Portal
+            Partner Portal
           </p>
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
             Every referral counted.
             <span className="block text-accent-400">Every commission earned.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-navy-200">
-            Agents share a unique link. Prospects request their free Mary
-            Sales consultation. Referrals are recorded automatically — no manual
-            entry, no disputes.
+            Partners share a unique link. Companies sign up for MARY and start
+            their subscription. Commissions are calculated automatically —
+            recurring, transparent, and tracked in real time.
           </p>
           <div className="mt-8">
             <Link href="/login" className="btn-primary px-6 py-3 text-base">

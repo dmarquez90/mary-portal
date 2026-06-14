@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createServerSupabase } from "@/lib/supabase/server";
 import SignupForm from "@/components/SignupForm";
 
-export const metadata: Metadata = { title: "Create account" };
+export const metadata: Metadata = { title: "Apply for access" };
 
 export default async function SignupPage() {
   const supabase = createServerSupabase();
@@ -13,13 +13,13 @@ export default async function SignupPage() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
+    const { data: partner } = await supabase
+      .from("partners")
       .select("role, status")
-      .eq("id", user.id)
+      .eq("user_id", user.id)
       .single();
-    if (profile?.status === "active") {
-      redirect(profile.role === "admin" ? "/admin" : "/agent");
+    if (partner && partner.status !== "suspended") {
+      redirect(partner.role === "admin" ? "/admin" : "/portal");
     }
   }
 
@@ -39,10 +39,10 @@ export default async function SignupPage() {
       <main className="flex flex-1 items-center justify-center px-4 pb-16">
         <div className="w-full max-w-md">
           <div className="card p-8">
-            <h1 className="text-2xl font-bold text-navy-800">Create your agent account</h1>
+            <h1 className="text-2xl font-bold text-navy-800">Become a Mary partner</h1>
             <p className="mb-6 mt-1 text-sm text-slate-500">
-              Apply for access to the Mary Portal. An administrator will
-              review and activate your account.
+              Apply for access to the Mary Partner Portal. An administrator
+              will review your application and complete onboarding.
             </p>
             <SignupForm />
           </div>

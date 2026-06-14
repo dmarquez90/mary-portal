@@ -12,18 +12,18 @@ export default async function AdminLayout({
 
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
+  const { data: partner } = await supabase
+    .from("partners")
     .select("full_name, role, status")
-    .eq("id", user.id)
+    .eq("user_id", user.id)
     .single();
 
-  if (!profile || profile.role !== "admin") {
-    redirect(profile?.role === "agent" ? "/agent" : "/login");
+  if (!partner || partner.role !== "admin") {
+    redirect(partner?.role === "partner" ? "/portal" : "/login");
   }
 
   return (
-    <PortalShell variant="admin" userName={profile.full_name}>
+    <PortalShell variant="admin" userName={partner.full_name}>
       {children}
     </PortalShell>
   );
