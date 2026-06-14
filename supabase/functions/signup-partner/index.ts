@@ -72,25 +72,29 @@ Deno.serve(async (req: Request) => {
     return json({ error: createError?.message ?? "Could not create user" }, 400);
   }
 
-  const { error: partnerError } = await admin.from("partners").insert({
-    user_id: created.user.id,
-    role: "partner",
-    full_name: fullName,
-    email,
-    company: company || null,
-    country: country || null,
-    phone: phone || null,
-    partner_type: "agent",
-    status: "pending",
-    onboarding_status: "pending",
-    ref_code: null,
-    commission_pct: 15,
-    level: "bronze",
-  });
+  // NOTE: a database trigger (on_auth_user_created -> handle_new_user) already
+  // inserts a base partners row (user_id, full_name, email, role='partner',
+  // status/onboarding_status defaults) as soon as the auth user is created.
+  // We just need to fill in the additional application details here.
+  const { error: partnerError } = await admin
+    .from("partners")
+    .update({
+      full_name: fullName,
+      company: company || null,
+      country: country || null,
+      phone: phone || null,
+      partner_type: "agent",
+      commission_pct: 15,
+      level: "bronze",
+    })
+    .eq("user_id", created.user.id);
 
   if (partnerError) {
     await admin.auth.admin.deleteUser(created.user.id);
-    return json({ error: `Could not create partner profile: ${partnerError.message}` }, 400);
+    return json(
+      { error: `Could not create partner profile: ${partnerError.message}` },
+      400,
+    );
   }
 
   return json({ ok: true }, 201);
