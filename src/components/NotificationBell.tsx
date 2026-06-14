@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { formatDateTime } from "@/lib/format";
@@ -18,6 +18,7 @@ interface NotificationBellProps {
 
 export default function NotificationBell({ theme = "light" }: NotificationBellProps) {
   const supabase = useMemo(() => createClient(), []);
+  const reactId = useId();
   const [pending, setPending] = useState<PendingAgent[]>([]);
   const [open, setOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -42,7 +43,7 @@ export default function NotificationBell({ theme = "light" }: NotificationBellPr
     load();
 
     const channel = supabase
-      .channel("admin-pending-agents")
+      .channel(`admin-pending-agents-${reactId}`)
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "profiles" },
@@ -54,7 +55,7 @@ export default function NotificationBell({ theme = "light" }: NotificationBellPr
       active = false;
       supabase.removeChannel(channel);
     };
-  }, [supabase]);
+  }, [supabase, reactId]);
 
   const count = pending.length;
 
