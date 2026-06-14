@@ -30,7 +30,7 @@ create table public.leads (
   full_name text not null,
   email text not null,
   phone text not null,
-  property_address text not null,
+  company_name text not null,
   message text,
   status text not null default 'new'
     check (status in ('new', 'contacted', 'in_progress', 'contract_signed', 'lost')),

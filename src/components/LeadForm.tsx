@@ -13,7 +13,7 @@ interface FieldErrors {
   full_name?: string;
   email?: string;
   phone?: string;
-  property_address?: string;
+  company_name?: string;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,7 +22,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -34,7 +34,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
     if (fullName.trim().length < 2) errors.full_name = "Please enter your full name.";
     if (!EMAIL_RE.test(email.trim())) errors.email = "Please enter a valid email address.";
     if (phone.trim().replace(/\D/g, "").length < 7) errors.phone = "Please enter a valid phone number.";
-    if (address.trim().length < 5) errors.property_address = "Please enter the property address.";
+    if (companyName.trim().length < 2) errors.company_name = "Please enter your company name.";
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
   }
@@ -52,7 +52,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
       full_name: fullName.trim(),
       email: email.trim().toLowerCase(),
       phone: phone.trim(),
-      property_address: address.trim(),
+      company_name: companyName.trim(),
       message: message.trim() || null,
       status: "new",
     });
@@ -78,7 +78,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
         <h2 className="text-xl font-bold text-navy-800">Request received!</h2>
         <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-slate-500">
           Thanks, {fullName.split(" ")[0] || "there"}. Our team will contact you
-          shortly to schedule your free ADU consultation.
+          shortly to schedule your free Mary Sales consultation.
         </p>
       </div>
     );
@@ -155,20 +155,20 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
       </div>
 
       <div>
-        <label htmlFor="lead-address" className="label">
-          Property address *
+        <label htmlFor="lead-company" className="label">
+          Company name *
         </label>
         <input
-          id="lead-address"
+          id="lead-company"
           type="text"
-          autoComplete="street-address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          autoComplete="organization"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
           className="input"
-          placeholder="123 Main St, San Diego, CA"
+          placeholder="Acme Inc."
         />
-        {fieldErrors.property_address ? (
-          <p className="mt-1 text-xs text-red-600">{fieldErrors.property_address}</p>
+        {fieldErrors.company_name ? (
+          <p className="mt-1 text-xs text-red-600">{fieldErrors.company_name}</p>
         ) : null}
       </div>
 
@@ -182,7 +182,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="input resize-none"
-          placeholder="Tell us about your project…"
+          placeholder="Tell us about your business…"
         />
       </div>
 
@@ -200,7 +200,7 @@ export default function LeadForm({ agentId, agentName, refCode }: LeadFormProps)
         )}
       </button>
       <p className="text-center text-xs text-slate-400">
-        We&apos;ll only use your information to contact you about your ADU project.
+        We&apos;ll only use your information to contact you about your Mary Sales consultation.
       </p>
     </form>
   );

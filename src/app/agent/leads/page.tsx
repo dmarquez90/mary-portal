@@ -42,7 +42,7 @@ export default async function AgentLeadsPage() {
                 <tr>
                   <th className="table-th">Prospect</th>
                   <th className="table-th">Contact</th>
-                  <th className="table-th">Property</th>
+                  <th className="table-th">Company</th>
                   <th className="table-th">Received</th>
                   <th className="table-th">Status</th>
                 </tr>
@@ -63,8 +63,8 @@ export default async function AgentLeadsPage() {
                       <p className="text-xs text-slate-400">{lead.phone}</p>
                     </td>
                     <td className="table-td max-w-[240px]">
-                      <p className="truncate" title={lead.property_address}>
-                        {lead.property_address}
+                      <p className="truncate" title={lead.company_name}>
+                        {lead.company_name}
                       </p>
                     </td>
                     <td className="table-td whitespace-nowrap">

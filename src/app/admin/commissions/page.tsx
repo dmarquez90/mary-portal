@@ -12,7 +12,7 @@ export default async function AdminCommissionsPage() {
   const { data } = await supabase
     .from("commissions")
     .select(
-      "*, agent:profiles(full_name, ref_code), lead:leads(full_name, property_address)",
+      "*, agent:profiles(full_name, ref_code), lead:leads(full_name, company_name)",
     )
     .order("created_at", { ascending: false });
 

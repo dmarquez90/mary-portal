@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { createServerSupabase } from "@/lib/supabase/server";
 import LeadForm from "@/components/LeadForm";
 
-export const metadata: Metadata = { title: "Free ADU Consultation" };
+export const metadata: Metadata = { title: "Free Mary Sales Consultation" };
 export const dynamic = "force-dynamic";
 
 interface ReferralPageProps {
@@ -57,17 +57,17 @@ export default async function ReferralPage({ params }: ReferralPageProps) {
             You were referred by {agent.agent_name}
           </p>
           <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Request your <span className="text-accent-400">free ADU consultation</span>
+            Request your <span className="text-accent-400">free Mary Sales consultation</span>
           </h1>
           <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-navy-200 lg:mx-0">
-            Thinking about adding an Accessory Dwelling Unit to your property?
-            Tell us a little about your project and our team will reach out to
+            Thinking about streamlining your business with MARY? Tell us a
+            little about your business and our team will reach out to
             schedule a free, no-obligation consultation.
           </p>
           <ul className="mx-auto mt-7 max-w-md space-y-3 text-left text-sm text-navy-100 lg:mx-0">
             {[
-              "Free feasibility review of your property",
-              "Design, permitting and construction guidance",
+              "Free walkthrough tailored to your business",
+              "Setup, onboarding and migration guidance",
               "Clear pricing — no surprises",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3">

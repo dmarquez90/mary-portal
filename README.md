@@ -1,6 +1,6 @@
-# ADU Referral Tracking Portal
+# Mary Portal — Referral Tracking
 
-A referral tracking system for ADU (Accessory Dwelling Unit) consultations.
+A referral tracking system for Mary Sales consultations.
 Independent sales agents share unique referral links with prospects. When a
 prospect submits the form, the referral is recorded automatically — no manual
 entry, no disputes over who referred whom.

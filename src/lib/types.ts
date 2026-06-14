@@ -31,7 +31,7 @@ export interface Lead {
   full_name: string;
   email: string;
   phone: string;
-  property_address: string;
+  company_name: string;
   message: string | null;
   status: LeadStatus;
   created_at: string;
@@ -52,7 +52,7 @@ export interface LeadWithAgent extends Lead {
 
 export interface CommissionWithJoins extends Commission {
   agent: Pick<Profile, "full_name" | "ref_code"> | null;
-  lead: Pick<Lead, "full_name" | "property_address"> | null;
+  lead: Pick<Lead, "full_name" | "company_name"> | null;
 }
 
 export interface AgentWithStats extends Profile {

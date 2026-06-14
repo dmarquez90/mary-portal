@@ -3,11 +3,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "ADU Referral Portal",
-    template: "%s | ADU Referral Portal",
+    default: "Mary Portal",
+    template: "%s | Mary Portal",
   },
   description:
-    "Referral tracking portal for ADU consultations — agents share links, leads are tracked automatically.",
+    "Referral tracking portal for Mary Sales consultations — agents share links, leads are tracked automatically.",
 };
 
 export default function RootLayout({

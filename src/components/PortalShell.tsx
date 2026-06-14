@@ -86,10 +86,10 @@ export default function PortalShell({ variant, userName, children }: PortalShell
   const brand = (
     <Link href={home} className="flex items-center gap-2.5">
       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent-500 text-base font-black text-white">
-        A
+        M
       </span>
       <span className="text-base font-bold text-white">
-        ADU <span className="text-accent-400">Portal</span>
+        Mary <span className="text-accent-400">Portal</span>
       </span>
     </Link>
   );

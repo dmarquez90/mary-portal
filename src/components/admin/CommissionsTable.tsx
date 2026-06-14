@@ -121,7 +121,7 @@ export default function CommissionsTable({ initialCommissions }: CommissionsTabl
                     <td className="table-td">
                       <p>{commission.lead?.full_name ?? "—"}</p>
                       <p className="max-w-[220px] truncate text-xs text-slate-400">
-                        {commission.lead?.property_address ?? ""}
+                        {commission.lead?.company_name ?? ""}
                       </p>
                     </td>
                     <td className="table-td whitespace-nowrap font-semibold text-navy-800">

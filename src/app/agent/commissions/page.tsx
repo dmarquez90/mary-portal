@@ -14,7 +14,7 @@ export default async function AgentCommissionsPage() {
   // RLS returns only this agent's commissions.
   const { data } = await supabase
     .from("commissions")
-    .select("*, lead:leads(full_name, property_address)")
+    .select("*, lead:leads(full_name, company_name)")
     .order("created_at", { ascending: false });
 
   const commissions = (data ?? []) as CommissionWithJoins[];
@@ -60,7 +60,7 @@ export default async function AgentCommissionsPage() {
                         {commission.lead?.full_name ?? "—"}
                       </p>
                       <p className="max-w-[260px] truncate text-xs text-slate-400">
-                        {commission.lead?.property_address ?? ""}
+                        {commission.lead?.company_name ?? ""}
                       </p>
                     </td>
                     <td className="table-td whitespace-nowrap font-semibold text-navy-800">
