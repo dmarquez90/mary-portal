@@ -6,6 +6,7 @@ import {
   type CommissionStatus,
   type OnboardingStatus,
   type PayoutStatus,
+  type PromoStatus,
   type ReferralStatus,
 } from "@/lib/types";
 
@@ -38,6 +39,20 @@ const PAYOUT_STYLES: Record<PayoutStatus, string> = {
   rejected: "bg-red-50 text-red-700 ring-red-600/20",
 };
 
+const PROMO_STYLES: Record<PromoStatus, string> = {
+  pending: "bg-slate-100 text-slate-500 ring-slate-500/20",
+  active: "bg-accent-50 text-accent-700 ring-accent-600/20",
+  paused: "bg-amber-50 text-amber-700 ring-amber-600/20",
+  expired: "bg-red-50 text-red-700 ring-red-600/20",
+};
+
+const PROMO_STATUS_LABELS: Record<PromoStatus, string> = {
+  pending: "Pending",
+  active: "Active",
+  paused: "Paused",
+  expired: "Expired",
+};
+
 function Badge({ className, children }: { className: string; children: React.ReactNode }) {
   return (
     <span
@@ -62,4 +77,8 @@ export function CommissionStatusBadge({ status }: { status: CommissionStatus }) 
 
 export function PayoutStatusBadge({ status }: { status: PayoutStatus }) {
   return <Badge className={PAYOUT_STYLES[status]}>{PAYOUT_STATUS_LABELS[status]}</Badge>;
+}
+
+export function PromoStatusBadge({ status }: { status: PromoStatus }) {
+  return <Badge className={PROMO_STYLES[status]}>{PROMO_STATUS_LABELS[status]}</Badge>;
 }
