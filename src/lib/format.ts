@@ -29,3 +29,13 @@ export function startOfMonthISO(): string {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
 }
+
+/** Formats a "HH:MM:SS" or "HH:MM" time-of-day string as e.g. "2:30 PM". */
+export function formatTime(time: string): string {
+  const [hoursStr, minutesStr] = time.split(":");
+  const hours = Number(hoursStr);
+  const minutes = Number(minutesStr);
+  const date = new Date();
+  date.setHours(hours, minutes, 0, 0);
+  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+}

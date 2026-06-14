@@ -8,6 +8,7 @@ import {
   type PayoutStatus,
   type PromoStatus,
   type ReferralStatus,
+  type TrainingBookingStatus,
 } from "@/lib/types";
 
 const ONBOARDING_STYLES: Record<OnboardingStatus, string> = {
@@ -53,6 +54,20 @@ const PROMO_STATUS_LABELS: Record<PromoStatus, string> = {
   expired: "Expired",
 };
 
+const TRAINING_STYLES: Record<TrainingBookingStatus, string> = {
+  scheduled: "bg-blue-50 text-blue-700 ring-blue-600/20",
+  completed: "bg-accent-50 text-accent-700 ring-accent-600/20",
+  cancelled: "bg-slate-100 text-slate-500 ring-slate-500/20",
+  no_show: "bg-red-50 text-red-700 ring-red-600/20",
+};
+
+const TRAINING_STATUS_LABELS: Record<TrainingBookingStatus, string> = {
+  scheduled: "Scheduled",
+  completed: "Completed",
+  cancelled: "Cancelled",
+  no_show: "No-show",
+};
+
 function Badge({ className, children }: { className: string; children: React.ReactNode }) {
   return (
     <span
@@ -81,4 +96,8 @@ export function PayoutStatusBadge({ status }: { status: PayoutStatus }) {
 
 export function PromoStatusBadge({ status }: { status: PromoStatus }) {
   return <Badge className={PROMO_STYLES[status]}>{PROMO_STATUS_LABELS[status]}</Badge>;
+}
+
+export function TrainingBookingStatusBadge({ status }: { status: TrainingBookingStatus }) {
+  return <Badge className={TRAINING_STYLES[status]}>{TRAINING_STATUS_LABELS[status]}</Badge>;
 }
