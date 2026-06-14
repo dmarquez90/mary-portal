@@ -1,13 +1,130 @@
 import type { Metadata } from "next";
-import ComingSoon from "@/components/ComingSoon";
+import Link from "next/link";
+import { createServerSupabase } from "@/lib/supabase/server";
+import { formatCurrency } from "@/lib/format";
+import type { Partner, PayoutRequest } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Payouts" };
+export const dynamic = "force-dynamic";
 
-export default function AdminPayoutsPage() {
+export default async function AdminPayoutsPage() {
+  const supabase = createServerSupabase();
+
+  const [{ data: partners }, { data: payouts }] = await Promise.all([
+    supabase.from("partners").select("*").eq("role", "partner").order("full_name"),
+    supabase.from("payout_requests").select("*"),
+  ]);
+
+  const partnerRows = (partners ?? []) as Partner[];
+  const payoutRows = (payouts ?? []) as PayoutRequest[];
+
+  const stats = new Map<
+    string,
+    { pending: number; processing: number; paid: number; total: number }
+  >();
+  for (const p of payoutRows) {
+    const key = p.partner_id ?? "unassigned";
+    const entry = stats.get(key) ?? { pending: 0, processing: 0, paid: 0, total: 0 };
+    const amount = Number(p.amount);
+    if (p.status === "pending") entry.pending += amount;
+    if (p.status === "processing") entry.processing += amount;
+    if (p.status === "paid") entry.paid += amount;
+    entry.total += amount;
+    stats.set(key, entry);
+  }
+
+  const totals = { pending: 0, processing: 0, paid: 0 };
+  for (const p of payoutRows) {
+    const amount = Number(p.amount);
+    if (p.status === "pending") totals.pending += amount;
+    if (p.status === "processing") totals.processing += amount;
+    if (p.status === "paid") totals.paid += amount;
+  }
+
   return (
-    <ComingSoon
-      title="Payouts"
-      description="Review and process agent payout requests."
-    />
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-navy-800">Payouts</h1>
+        <p className="mt-1 text-sm text-slate-500">
+          Review and process agent payout requests.
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <div className="card p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Pending</p>
+          <p className="mt-1 text-2xl font-bold text-navy-800">{formatCurrency(totals.pending)}</p>
+        </div>
+        <div className="card p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Processing</p>
+          <p className="mt-1 text-2xl font-bold text-navy-800">{formatCurrency(totals.processing)}</p>
+        </div>
+        <div className="card p-5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">Paid</p>
+          <p className="mt-1 text-2xl font-bold text-accent-600">{formatCurrency(totals.paid)}</p>
+        </div>
+      </div>
+
+      {partnerRows.length === 0 ? (
+        <div className="card flex flex-col items-center justify-center px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-slate-700">No agents yet</p>
+          <p className="mt-1 max-w-sm text-sm text-slate-400">
+            Add agents first, then manage their payout requests.
+          </p>
+        </div>
+      ) : (
+        <div className="card overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Agent</th>
+                  <th className="px-4 py-3 font-semibold">Pending</th>
+                  <th className="px-4 py-3 font-semibold">Processing</th>
+                  <th className="px-4 py-3 font-semibold">Paid</th>
+                  <th className="px-4 py-3 font-semibold">Total</th>
+                  <th className="px-4 py-3" />
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {partnerRows.map((partner) => {
+                  const entry = stats.get(partner.id) ?? { pending: 0, processing: 0, paid: 0, total: 0 };
+                  return (
+                    <tr key={partner.id} className="hover:bg-slate-50">
+                      <td className="px-4 py-3">
+                        <Link
+                          href={`/admin/payouts/${partner.id}`}
+                          className="font-semibold text-navy-800 hover:text-accent-600"
+                        >
+                          {partner.full_name}
+                        </Link>
+                        {partner.ref_code ? (
+                          <p className="text-xs text-slate-400">{partner.ref_code}</p>
+                        ) : null}
+                      </td>
+                      <td className="px-4 py-3 text-slate-600">{formatCurrency(entry.pending)}</td>
+                      <td className="px-4 py-3 text-slate-600">{formatCurrency(entry.processing)}</td>
+                      <td className="px-4 py-3 text-accent-600">{formatCurrency(entry.paid)}</td>
+                      <td className="px-4 py-3 font-semibold text-navy-800">{formatCurrency(entry.total)}</td>
+                      <td className="px-4 py-3 text-right">
+                        <Link
+                          href={`/admin/payouts/${partner.id}`}
+                          className="inline-flex items-center gap-1 text-sm font-medium text-accent-600 hover:text-accent-700"
+                        >
+                          View
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                          </svg>
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
